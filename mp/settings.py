@@ -7,10 +7,21 @@ BASE_DIR = PACKAGE_ROOT
 
 DEBUG = True
 
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": "dev.db",
+#    }
+#}
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "dev.db",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mydb',
+        'USER': 'manuelcepeda',
+        'PASSWORD': 'ingasdfg',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
