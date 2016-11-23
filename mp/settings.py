@@ -7,26 +7,17 @@ BASE_DIR = PACKAGE_ROOT
 
 DEBUG = True
 
-#DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.sqlite3",
-#        "NAME": "dev.db",
-#    }
-#}
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
-        'USER': 'manuelcepeda',
-        'PASSWORD': 'ingasdfg',
-        'HOST': 'localhost',
-        'PORT': '',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "dev.db",
     }
 }
 
 ALLOWED_HOSTS = [
     "localhost",
+    "104.131.180.80"
+
 ]
 
 # Local time zone for this installation. Choices can be found here:
