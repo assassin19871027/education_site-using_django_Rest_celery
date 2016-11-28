@@ -20,7 +20,7 @@ urlpatterns = [
     url(r"^profile/$", profile, name="profile"),
     url(r"^searchoffer/$", searchoffer, name="searchoffer"),
     url(r"^searchneed/$", searchneed, name="searchneed"),
-    url(r"^home/$", home, name="home"),
+    url(r"^home/$", home, name="homesite"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -16,20 +16,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost",
-    "104.131.180.80"
+    "104.236.45.149"
 
 ]
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
-        'USER': 'manuelcepeda',
-        'PASSWORD': 'ingasdfg',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
