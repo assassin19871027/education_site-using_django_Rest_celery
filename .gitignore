@@ -1,6 +1,6 @@
 *.pyc
 *~
-__pycache__
+
 mysiteenv
 db.sqlite3
 /static
@@ -8,3 +8,66 @@ db.sqlite3
 node_modules/
 dev.db
 site_media/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+*.json
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+bin/
+include/
+local/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+site_media/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
+
+# Django stuff:
+*.log
+*.pot
+local_settings.py
+db.sqlite3
+static/
+
+# Sphinx documentation
+docs/_build/
+
