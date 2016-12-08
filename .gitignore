@@ -1,4 +1,10 @@
 *.pyc
+*~
+__pycache__
+mysiteenv
+db.sqlite3
+/static
+.DS_Store
 node_modules/
 dev.db
 site_media/
