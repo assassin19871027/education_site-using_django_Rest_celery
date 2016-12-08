@@ -1,0 +1,20 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Salir" %}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-5">
+            <form method="POST" action="{% url "account_logout" %}">
+                <legend>{% trans "Salir" %}</legend>
+                <fieldset>
+                    {% csrf_token %}
+                    <p>{% trans "¿Seguro que quieres salir?" %}</p>
+                    <button type="submit" class="btn btn-success">{% trans "Salir" %}</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}

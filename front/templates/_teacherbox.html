@@ -1,0 +1,46 @@
+{% load comments %}
+{% get_comment_count for teacher.user as comment_count %}
+
+
+      <div class="col-sm-4">  
+        <div class="well">
+          <div class="well profile">
+            <h4><a href="{% url 'teacherprofile' teacher.id %}">{{teacher.user.username }}</a></h4>
+            <img src="{% if teacher.photo %}
+            {{ teacher.photo.url }}
+            {% else %}
+            /static/images/icon.svg
+            {% endif %}" class="img-circle" height="80" width="80" alt="Avatar">
+          </div>
+
+
+          <div class="caption">
+              
+              
+              </h4>
+              <div class="well profile">
+              <p style="min-height: 60px">{{teacher.headline }}</p>
+              </div>
+          </div>
+          <div class="well profile">
+            
+            <p style="min-height: 20px">
+              {% for tag in teacher.skills.all  %}
+                 <span class="label label-warning">{{tag.name}}</span>
+              {% endfor %}
+            </p>
+          </div>
+
+          <div class="ratings">
+              <p style="margin-top:-15px"  class="pull-left big-font">${{teacher.fee|floatformat}}/Hora</p>
+              <p style="margin-top:-15px" class="pull-right big-font">
+                  {{ comment_count }}
+                   <span class="glyphicon glyphicon-comment"></span>
+               </p style="min-width=30px;">
+
+ 
+
+          </div>
+
+        </div>
+      </div>

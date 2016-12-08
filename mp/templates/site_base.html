@@ -6,8 +6,17 @@
 
 
 {% block styles %}
+
+    <link href="{% static 'css/mp.css' %}" rel="stylesheet"/>
     <link href="{% static "css/site.css" %}" rel="stylesheet" />
+    
+    {% block csslibs %}
+    {% endblock %}
+
+
 {% endblock %}
+
+
 
 
 {% block extra_head_base %}
@@ -22,7 +31,13 @@
 
 {% block scripts %}
     <script src="{% static "js/site.js" %}"></script>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block jslibs %}
+    {% endblock %}
 {% endblock %}
+
+
 
 {% block extra_body_base %}
     {% analytics %}

@@ -1,0 +1,211 @@
+{% extends "site_base.html" %}
+
+{% load account_tags %}
+{% load i18n %}
+{% load bootstrap %}
+{% load staticfiles %}
+{% block head_title %}{% trans "Regístrate" %}{% endblock %}
+
+{% block csslibs %}
+<link href="{% static 'css/plugins/chosen/chosen.css' %}" rel="stylesheet">
+<link href="{% static 'css/plugins/touchspin/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <form id="signup_form" method="post" action="{% url "new_teacher_profile" %}" autocapitalize="off" {% if teachform.is_multipart %} enctype="multipart/form-data"{% endif %}>
+                <legend>{% trans "Regístrate" %}</legend>
+                {% csrf_token %}
+                               <form class="form-horizontal" action="/newteacherprof/" enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+
+                    {% if teachform.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in teachform.errors.viewvalues %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Imagen de Perfil</label>
+
+                        <div class="img-preview img-preview-sm col-sm-10">
+                         
+                            <img id="blah"
+                            src={% if teacher.photo %}"{{ teacher.photo.url }}"{%else%}"{% static 'images/icon.svg' %}"{% endif %}
+                            width="100" height="100" />
+                            <div class="btn-group">
+                                <label title="{{teachform.photo.help_text}}"  for="id_{{ teachform.photo.name }}" class="btn btn-primary">
+                                <!-- <input type='file' id="imgInp" class="hide" />-->
+                                <div style="display: none"> {{ teachform.photo }} </div>Elegir Imagen</label>
+                                
+
+
+                            </div>
+
+                            <span class="help-block">{{ teachform.photo.help_text}}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Extracto</label>
+                        <div class="col-sm-10">{{ teachform.headline }}
+                            <span class="help-block">{{ teachform.headline.help_text}}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Describe tu perfil como profesor</label>
+                        <div class="col-sm-10">{{ teachform.about }}
+                            <span class="help-block">{{ teachform.about.help_text}}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Clases que dictarás</label>
+                        <div class="col-sm-10">{{ teachform.skills }}
+                            <span class="help-block">{{ teachform.skills.help_text}}</span>
+                            <span class="help-block extra-info"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Tarifa</label>
+                        <div class="col-sm-10">{{ teachform.fee }}
+                            <span class="help-block">{{ teachform.fee.help_text}}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group pull-left">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button type="submit" class="btn btn-primary block m-b">Guardar Perfil</button>
+                        </div>
+                    </div>
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                </form>
+
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block jslibs %}
+<!-- Chosen -->
+<script src="{% static 'js/plugins/chosen/chosen.jquery.js' %}"></script>
+<script src="{% static 'js/plugins/touchspin/jquery.bootstrap-touchspin.min.js' %}"></script>
+
+{% endblock %}
+
+
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#id_username').focus();
+
+
+            function readURL(input) {
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#id_{{teachform.photo.name}}").change(function() {
+                readURL(this);
+            });
+
+            var config = {
+                no_results_text: 'Click aqui para agregar nueva skill',
+                allow_single_deselect: true,
+                disable_search_threshold: 10
+            }
+
+            var $chosenSkills = $('.chosen-select').chosen(config);
+
+            // clicking in no results line will trigger the save()
+            $(document).on('click', '.no-results', function(){
+                $this = $(this);
+
+
+                $.ajax({
+                    url: "{% url 'ajax-new-skill' %}",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        skillName: $('span', this).html()
+                    }
+                }).done(function(response) {
+
+                    var $chosenContainer = $this.parents('.chosen-container');
+                    var $ulOfChosens = $chosenContainer.find('.chosen-choices');
+                    var last = Number($ulOfChosens.find('li.search-choice').last().find('a').data('option-array-index'));
+                    var noResults = $this;
+
+                    // showing a confirmation message
+                    $chosenContainer
+                        .siblings('.extra-info')
+                        .html(response.skill_name + ' ha sido agregada a la lista.');
+
+                    // adding new skill to original select
+                    var $origSelect = $('#id_skills');
+                    var $newOption = $(new Option(response.skill_name, response.skill_id, true));
+                    $origSelect.append($newOption);
+
+                    // $('.chosen-select').trigger("chosen:updated");
+                    // $chosenContainer.removeClass('chosen-with-drop');
+                    // $chosenContainer.removeClass('chosen-container-active');
+                    $chosenSkills.chosen("destroy");
+                    $chosenSkills.chosen({no_results_text: 'Click aqui para agregar nueva skill'});
+                    
+                    var elegidos = $('.chosen-select').val();
+                    if (typeof elegidos != "undefined" && elegidos != null && elegidos.length > 0) {
+                        elegidos.push(response.skill_id);
+                      } else {
+                        var elegidos = [response.skill_id];
+                    }
+                    $('.chosen-select').val(elegidos);
+                    $('.chosen-select').trigger("chosen:updated");
+
+
+                    //var text = '<li class="search-choice"><span>' + response.skill_name + '</span><a class="search-choice-close" data-option-array-index="' + response.skill_id + '"></a></li>';
+                    
+                    // // adding new skill to chosen list and clear typed text
+                    // $ulOfChosens
+                    //     .find('li.search-field')
+                    //     .before('<li class="search-choice"><span>'+ response.skill_name +'</span><a class="search-choice-close" data-option-array-index="'+ (last + 1) +'"></a></li>');
+                    // // clearing typed text
+                    // $ulOfChosens
+                    //     .find('input')
+                    //     .val('');
+                })
+            });
+
+            $(".touchspin2")
+                .TouchSpin({
+                    min: 1,
+                    max: 6000000,
+                    step: 0.5,
+                    decimals: 2,
+                    boostat: 5,
+                    maxboostedstep: 10,
+                    prefix: '$CL/h',
+                    buttondown_class: 'btn btn-white',
+                    buttonup_class: 'btn btn-white'
+                });
+            
+        });
+    </script>
+{% endblock %}

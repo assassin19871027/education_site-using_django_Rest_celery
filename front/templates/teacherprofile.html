@@ -1,0 +1,168 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load comments %}
+
+{% block head_title %}Perfil del usuario{% endblock %}
+
+{% block body_class %}Profileteacher{% endblock %}
+
+{% block body_base %}
+
+
+      <section>
+        <div class="container">
+
+        </div>
+    </section>
+  
+<div class="container text-center">    
+  <div class="row">
+    <div class="col-sm-3 well">
+      <div class="well profile">
+     
+        <h5>
+        {% if user.is_authenticated %}
+            {% if teacher.user == user %}
+                <a href="{% url 'editteacherprofile' %}">
+                    </i> Editar Perfil
+                </a>
+            {% else %}  
+            {{teacher.user.username }}
+            {% endif %}
+
+        {% endif %}
+        </h5>
+
+         <img src="{% if teacher.photo %}
+            {{ teacher.photo.url }}
+            {% else %}
+            /static/images/icon.svg
+            {% endif %}" class="img-circle" height="80" width="80" alt="Avatar">
+      </div>
+      <div class="well profile">
+        <h5>{{teacher.headline }}</h5>
+        <p>
+          {{ teacher.about }}
+        </p>
+      </div>
+      <div class="well profile">
+        <h5>Clases que enseña</h5>
+        <p>
+          {% for tag in teacher.skills.all  %}
+             <span class="label label-primary">{{tag.name}}</span>
+          {% endfor %}
+        </p>
+      </div>
+
+      <div class="alert alert-success fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <p><strong>Ey!</strong></p>
+        People are looking at your profile. Find out who.
+      </div>
+      <p><a href="#">Link</a></p>
+      <p><a href="#">Link</a></p>
+      <p><a href="#">Link</a></p>
+    </div>
+    <div class="col-sm-7 text-left">
+    
+      <hr>
+
+      {% get_comment_count for teacher.user as comment_count %}
+
+      {% get_comment_form for teacher.user as form %}
+
+
+      <h4>Escribe un comentario:</h4>
+      <form role="form" action="{% comment_form_target %}" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          {% for field in form %}
+
+              {% if field.name != 'email' and field.name != 'url' and field.name != 'comment' and field.name != 'name' and field.name != 'honeypot' and field.name != 'followup' %}
+                  <p>  {{field}} </p>
+              {% endif %}
+
+          {% endfor %}
+
+          <textarea name="comment" class="form-control" rows="3" required></textarea>
+        </div>
+      <input type="hidden" type="checkbox" name="followup" checked>
+      <input type="hidden" name="email" value="foo@foo.foo" />
+      <input type="hidden" name="url" value="http://www.foofoo.com" />
+      <input type="hidden" name="name" value="myname" /> 
+        <button name="post" type="submit" class="btn btn-success">Enviar</button>
+      </form>
+      <br><br>
+      
+{% get_comment_list for teacher.user as comment_list  %}
+{% get_comment_count for teacher.user as comment_count %}
+
+
+      {% if comment_count != 0 %}
+      <p><span class="badge">{{ comment_count }}</span> Comentarios:</p><br>
+    {% endif %}
+
+      {% for comment in comment_list %}
+    {% if comment.level == 0 %}
+          {% language 'es' %}
+          <div class="row">
+                  <div class="col-sm-2 text-center">
+                    <img src="http://image.flaticon.com/icons/svg/53/53119.svg" class="img-circle" height="65" width="65" alt="Avatar">
+                  </div>
+                  <div class="col-sm-10">
+                    <h4>{{ comment.user.username }} <small>hace {{ comment.submit_date|timesince}}</small></h4>
+                    <p>{{ comment.comment }}{% if comment.allow_thread %}&nbsp;-&nbsp;<a href="{{ comment.get_reply_url }}">{% trans "Responder" %}</a>{% endif %}</p>
+                  </div>
+          </div>
+        {% endlanguage %}
+      {% elif comment.level == 1 %} 
+          <div class="row">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8"><p><span class="badge">1</span> Respuesta:</p><br></div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-2"></div>
+              <div class="col-xs-2 text-center">
+
+                <img src="http://image.flaticon.com/icons/svg/53/53119.svg" class="img-circle" height="65" width="65" alt="Avatar">
+              </div>
+              <div class="col-xs-8">
+                <h4>{{ comment.user.username }} <small>hace {{ comment.submit_date|timesince}}</small></h4>
+                <p>{{ comment.comment }}</p>
+                <br>
+              </div>
+          </div>
+
+
+        {% endif %}
+      
+
+      {% endfor %}
+
+      </div>
+      
+    
+  
+    <div class="col-sm-2 well">
+      <div class="thumbnail">
+        <p>Upcoming Events:</p>
+        <img src="http://image.flaticon.com/icons/svg/53/53119.svg" alt="Paris" width="400" height="300">
+        <p><strong>Paris</strong></p>
+        <p>Fri. 27 November 2015</p>
+        <button class="btn btn-primary">Info</button>
+      </div>      
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

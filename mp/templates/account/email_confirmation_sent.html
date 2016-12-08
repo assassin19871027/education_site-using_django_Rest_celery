@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Confirmar correo electrónico" %}{% endblock %}
+
+{% block body %}
+    <h2>{% trans "Confirmar correo electrónico" %}</h2>
+    
+    <p>{% blocktrans %}Hemos enviado un correo a <b>{{ email }}</b> para verificar. Sigue el enlace que te hemos enviado al correo para poder verificarlo. Si no recibes el correo por favor ponte en contacto con <a href="mailto:{{ THEME_CONTACT_EMAIL }}">{{ THEME_CONTACT_EMAIL }}</a>.{% endblocktrans %}</p>
+    <p><a href="{{ success_url }}">{% trans "Go back" %}</a></p>
+{% endblock %}

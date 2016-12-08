@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load comments %}
+      <h4>Escribe la respuesta:</h4>
+      <form role="form" action="{% comment_form_target %}" method="post">
+      {% csrf_token %}
+        <div class="form-group">
+          {% for field in form %}
+
+              {% if field.name != 'email' and field.name != 'url' and field.name != 'comment' and field.name != 'name' and field.name != 'honeypot' and field.name != 'followup' %}
+                  <p>  {{field}} </p>
+              {% endif %}
+
+          {% endfor %}
+
+          <textarea name="comment" class="form-control" rows="3" required></textarea>
+        </div>
+      <input type="hidden" type="checkbox" name="followup" checked>
+      <input type="hidden" name="email" value="foo@foo.foo" />
+      <input type="hidden" name="url" value="http://www.foofoo.com" />
+      <input type="hidden" name="name" value="myname" /> 
+      <input type="hidden" name="next" value="{% url 'teacherprofile' teacherpk %}" />
+        <button name="post" type="submit" class="btn btn-success">Enviar</button>
+      </form>
+      <br><br>

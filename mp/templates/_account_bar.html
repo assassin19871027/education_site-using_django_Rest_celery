@@ -1,26 +1,48 @@
 {% load i18n %}
+{% load static %}
 {% load account_tags %}
+
 
 
 <ul class="nav navbar-nav pull-right">
     {% if request.user.is_authenticated %}
-        <li class="navbar-text">
-            <i class="fa fa-user"></i> {% user_display request.user %}
+        <li>
+            <a href="{% url 'searchneed' %}"><i class="glyphicon glyphicon-eye-open"></i> {% trans "Necesitan" %}</a>
+        </li>
+        <li >
+            <a href="{% url 'teacherprofile' request.user.teacher.id %}"><i class="fa fa-user"></i> {% user_display request.user %}</a>
         </li>
         <li>
-            <a href="{% url 'account_settings' %}"><i class="fa fa-cog"></i> {% trans "Settings" %}</a>
+            <a href="{% url 'account_settings' %}"><i class="fa fa-cog"></i> {% trans "Configuración" %}</a>
         </li>
         <li>
-            <a id="account_logout" href="{% url 'account_logout' %}"><i class="fa fa-power-off"></i> {% trans "Log out" %}</a>
+            <a id="account_logout" href="{% url 'account_logout' %}"><i class="fa fa-power-off"></i> {% trans "Salir" %}</a>
         </li>
     {% else %}
-        <li><a href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
+        <li><a href="{% url 'account_login' %}">{% trans "Ingresar" %}</a></li>
         {% if ACCOUNT_OPEN_SIGNUP %}
-            <li><a href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
+            <li><a href="{% url 'teacher_signup' %}">{% trans "Regístrate como Profesor" %}</a></li>
+             <li><a href="{% url 'account_signup' %}">{% trans "Regístrate como Alumno" %}</a></li>           
         {% endif %}
     {% endif %}
+        <li>
+            <form class="navbar-form navbar-right" role="search" action="/searchoffer/" method="get">
+            <div class="form-group input-group">
+              <input type="text" class="form-control" placeholder="Buscar..." name="search" value="{{request.GET.search}}">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="submit">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>        
+            </div>
+            </form>
+        </li>
 </ul>
+
 
 <form id="accountLogOutForm" style="display: none;" action="{% url 'account_logout' %}" method="POST">
     {% csrf_token %}
 </form>
+
+
+

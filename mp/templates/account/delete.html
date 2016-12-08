@@ -1,0 +1,19 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block body_class %}account account-delete{% endblock %}
+
+{% block head_title %}{% trans "Eliminar Cuenta" %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans "Eliminar Cuenta" %}</h1>
+    
+    <p>{% blocktrans %}Si procedes tu información será <b>eliminada en   {{ ACCOUNT_DELETION_EXPUNGE_HOURS }} horas</b>.{% endblocktrans %}</p>
+    
+    <form method="post" action="{% url "account_delete" %}" autocapitalize="off">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">{% trans "Eliminar cuenta" %}</button>
+    </form>
+    
+{% endblock %}

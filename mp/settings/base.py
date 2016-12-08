@@ -23,6 +23,10 @@ ALLOWED_HOSTS = [
 
 ]
 
+#booytstrap variables
+THEME_CONTACT_EMAIL = "admin@mejorpromedio.cl"
+SITE_NAME = "Mejorpromedio"
+
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -150,11 +154,17 @@ INSTALLED_APPS = [
     "account",
     "pinax.eventlog",
     "pinax.webanalytics",
+    'django_comments',
+    'django_comments_xtd',
+     'overextends',
+
 
     # project
     "mp",
     "front",
 ]
+
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -185,6 +195,34 @@ LOGGING = {
     }
 }
 
+
+
+#comments settings app
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_FORM_CLASS = 'front.forms.SlimCommentForm'
+#COMMENTS_XTD_MODEL = 'front.models.SlimComment'
+
+
+# Either enable sending mail messages to the console:
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+COMMENTS_XTD_MAX_THREAD_LEVEL = 1  # default is 0
+COMMENTS_XTD_LIST_ORDER = ('-thread_id', 'order')
+
+# Or set up the EMAIL_* settings so that Django can send emails:
+#EMAIL_HOST = "smtp.mail.com"
+#EMAIL_PORT = "587"
+#EMAIL_HOST_USER = "alias@mail.com"
+#EMAIL_HOST_PASSWORD = "yourpassword"
+#DEFAULT_FROM_EMAIL = "Helpdesk <helpdesk@yourdomain>"
+COMMENTS_XTD_CONFIRM_EMAIL = False # Set to False to disable confirmation
+COMMENTS_XTD_SALT = b"es-war-einmal-una-bella-princesa-in-a-beautiful-castle"
+#COMMENTS_XTD_MAX_THREAD_LEVEL = 0 # Default value
+COMMENTS_XTD_THREADED_EMAILS = False # default to True, use False to allow
+                                     # other backend (say Celery based) send
+                                     # your emails.
+
+
 FIXTURE_DIRS = [
     os.path.join(PROJECT_ROOT, "fixtures"),
 ]
@@ -201,4 +239,5 @@ ACCOUNT_USE_AUTH_AUTHENTICATE = True
 
 AUTHENTICATION_BACKENDS = [
     "account.auth_backends.UsernameAuthenticationBackend",
+    "mp.email-auth.EmailBackend"
 ]

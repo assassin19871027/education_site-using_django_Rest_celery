@@ -1,0 +1,21 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load bootstrap %}
+
+{% block body_class %}account account-settings{% endblock %}
+
+{% block head_title %}{% trans "Configuración" %}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-5">
+            <form method="POST" action="{% url "account_settings" %}">
+                <legend>{% trans "Configuración" %}</legend>
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <button class="btn btn-success" type="submit">{% trans "Guardar" %}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
