@@ -21,7 +21,7 @@
     {% else %}
         <li><a href="{% url 'account_login' %}">{% trans "Ingresar" %}</a></li>
         {% if ACCOUNT_OPEN_SIGNUP %}
-            <li><a href="{% url 'teachersignup' %}">{% trans "Regístrate como Profesor" %}</a></li>
+            <li><a href="{% url 'teacher_signup' %}">{% trans "Regístrate como Profesor" %}</a></li>
              <li><a href="{% url 'account_signup' %}">{% trans "Regístrate como Alumno" %}</a></li>           
         {% endif %}
     {% endif %}
