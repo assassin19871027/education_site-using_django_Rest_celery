@@ -26,7 +26,7 @@ from front.views import (
 urlpatterns = [
     url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
     url(r"^admin/", include(admin.site.urls)),
-    url(r"^account/signup/teacher/$", SignupTeacherView.as_view(), name="teacher_signup"), 
+    url(r"^account/signup/teacher/$", SignupTeacherView.as_view(), name="teachersignup"), 
     url(r"^newteacherprofile/$", newteacherprofile, name="new_teacher_profile"),      
     url(r"^account/", include("account.urls")), #pinax urls
 
