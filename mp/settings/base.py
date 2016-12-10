@@ -156,7 +156,9 @@ INSTALLED_APPS = [
     "pinax.webanalytics",
     'django_comments',
     'django_comments_xtd',
-     'overextends',
+    'overextends',
+    'djcelery',
+    'djcelery_email',
 
 
     # project
@@ -204,10 +206,24 @@ COMMENTS_XTD_FORM_CLASS = 'front.forms.SlimCommentForm'
 
 
 # Either enable sending mail messages to the console:
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 COMMENTS_XTD_MAX_THREAD_LEVEL = 1  # default is 0
 COMMENTS_XTD_LIST_ORDER = ('-thread_id', 'order')
+
+
+# Email data
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'notificaciones@mejorpromedio.cl'
+EMAIL_HOST_PASSWORD = 'mejorpromedio1234'
+EMAIL_PORT = 587
+NOTIFY_MAIL = 'notificaciones@mejorpromedio.cl'
+CONTACT_MAIL = 'admin@mejorpromedio.cl'
+ADMINS_MAIL = 'administradores@mejorpromedio.cl'
+DEFAULT_FROM_EMAIL = 'notificaciones@mejorpromedio.cl'
+
+
 
 # Or set up the EMAIL_* settings so that Django can send emails:
 #EMAIL_HOST = "smtp.mail.com"
@@ -218,7 +234,7 @@ COMMENTS_XTD_LIST_ORDER = ('-thread_id', 'order')
 COMMENTS_XTD_CONFIRM_EMAIL = False # Set to False to disable confirmation
 COMMENTS_XTD_SALT = b"es-war-einmal-una-bella-princesa-in-a-beautiful-castle"
 #COMMENTS_XTD_MAX_THREAD_LEVEL = 0 # Default value
-COMMENTS_XTD_THREADED_EMAILS = False # default to True, use False to allow
+COMMENTS_XTD_THREADED_EMAILS = True# default to True, use False to allow
                                      # other backend (say Celery based) send
                                      # your emails.
 
@@ -227,7 +243,7 @@ FIXTURE_DIRS = [
     os.path.join(PROJECT_ROOT, "fixtures"),
 ]
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_EMAIL_UNIQUE = True
