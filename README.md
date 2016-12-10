@@ -63,7 +63,7 @@ Everything is installed, now we need to setup and run django
 
 
 $export DJANGO_SETTINGS_MODULE=mp.settings.local
-$ cd mejorpromedio/
+$ cd mp/
 $ python manage.py migrate
 $ python manage.py runserver
 Now you have a django server running, got to your browser and open this url http://127.0.0.1:8000
