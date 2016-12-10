@@ -20,7 +20,7 @@ Then pull the repository
 ```
 #!bash
    
-$ git clone git@bitbucket.org:mejorpromedio/mejorpromedio.git
+$ git clone git@bitbucket.org:mp/mp.git
 
 ```
 
