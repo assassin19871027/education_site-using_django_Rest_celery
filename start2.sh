@@ -14,7 +14,7 @@ echo "Starting $NAME"
 cd $APPDIR
 source ../bin/activate
 export PYTHONPATH=$APPDIR:$PYTHONPATH
-export DJANGO_SETTINGS_MODULE=mejorpromedio.settings.production
+export DJANGO_SETTINGS_MODULE=mp.settings.production
 
 
 # Create the run directory if it doesn't exist
