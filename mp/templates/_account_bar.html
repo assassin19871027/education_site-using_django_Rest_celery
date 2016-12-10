@@ -6,12 +6,14 @@
 
 <ul class="nav navbar-nav pull-right">
     {% if request.user.is_authenticated %}
+        {% if user.teacher  %}
         <li>
             <a href="{% url 'searchneed' %}"><i class="glyphicon glyphicon-eye-open"></i> {% trans "Necesitan" %}</a>
         </li>
         <li >
             <a href="{% url 'teacherprofile' request.user.teacher.id %}"><i class="fa fa-user"></i> {% user_display request.user %}</a>
         </li>
+        {% endif %}
         <li>
             <a href="{% url 'account_settings' %}"><i class="fa fa-cog"></i> {% trans "Configuración" %}</a>
         </li>
