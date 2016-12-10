@@ -12,14 +12,14 @@ echo "Starting $NAME"
  
 # Activate the virtual environment
 cd $APPDIR
-source ../../myenv/bin/activate
+source ../myenv/bin/activate
 export PYTHONPATH=$APPDIR:$PYTHONPATH
 export DJANGO_SETTINGS_MODULE=mp.settings.production
 
 
 # Create the run directory if it doesn't exist
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
-exec ../../myenv/bin/gunicorn \
+exec ../myenv/bin/gunicorn \
 -b 127.0.0.1:4003 \
 --name $NAME \
 --workers $NUM_WORKERS \
