@@ -157,7 +157,6 @@ INSTALLED_APPS = [
     'django_comments',
     'django_comments_xtd',
     'overextends',
-    'djcelery',
     'djcelery_email',
 
 

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from .celery import app as celery_app
+
+
+
 
 __about__ = """
 In addition to what is provided by the "zero" project, this project
