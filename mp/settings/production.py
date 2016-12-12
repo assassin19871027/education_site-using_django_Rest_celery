@@ -18,14 +18,24 @@ DATABASES = {
 }
 
 
-# CELERY SETTINGS
-BROKER_URL = "amqp://myuser:mp@localhost:5672/myvhost"
+#celery used to send stuff in background, i.e sending mails in backgrounds
+
+CELERY_BROKER_URL = 'amqp://mejorpromedio:mejorpromedio1234@localhost:5672/myvirtualhost'
+
+#: Only add pickle to this list if your broker is secured
+#: from unwanted access (see userguide/security.html)
+
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = 'django-cache'
+
+
+
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'America/Santiago'
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+#CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+#CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 # CELERY_EMAIL SETTINGS
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
