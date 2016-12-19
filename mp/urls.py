@@ -37,7 +37,7 @@ urlpatterns = [
     url(r"^searchneed/$", searchneed, name="searchneed"),
     url(r"^home/$", home, name="homesite"),
     url(r'^comments/posted/$', comment_posted, name="commentposted"),
-    url(r'^comments/', include('django_comments_xtd.urls')),
+    url(r'^comments/', include("django_comments_xtd.urls")),
     url(r'^ajax/skills/new/$', ajax_new_skill, name="ajax-new-skill"),
 ]
 

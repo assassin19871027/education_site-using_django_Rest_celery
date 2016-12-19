@@ -1,13 +1,14 @@
 amqp==1.4.9
 anyjson==0.3.3
 billiard==3.3.0.23
-celery==3.1.25
+celery==4.0.25 				// adam's fixed
 Django==1.10.4
 django-appconf==1.0.2
 django-apptemplates==1.2
 django-bootstrap-form==3.2.1
 django-celery==3.1.17
 django-celery-email==1.1.5
+django-celery-results 			// adam's fixed
 django-comments-xtd==1.6.3
 django-contrib-comments==1.7.3
 django-markup==1.1

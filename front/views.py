@@ -96,7 +96,7 @@ def teacherprofile(request, teacher_id):
         return teacher profile
     """
     teacher = get_object_or_404(Teacher, pk=teacher_id)
-
+    teachers = Teacher.objects.all()
     return render(request, "teacherprofile.html", locals())
 
 @login_required

@@ -4,6 +4,9 @@
     <head>
         <meta charset="utf-8" />
         <title>{% block head_title_base %}{% if SITE_NAME %}{{ SITE_NAME }} | {% endif %}{% block head_title %}{% endblock %}{% endblock %}</title>
+
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
         {% block viewport %}
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% endblock %}
@@ -20,6 +23,7 @@
         {% block extra_head_base %}
             {% block extra_head %}{% endblock %}
         {% endblock %}
+
     </head>
     <body class="{% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}" {% block body_extra_attributes %}{% endblock %}>
         <div class="{% block wrapper_class %}{% endblock %}">

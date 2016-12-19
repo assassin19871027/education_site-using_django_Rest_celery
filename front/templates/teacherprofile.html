@@ -94,10 +94,10 @@
         <button name="post" type="submit" class="btn btn-success">Enviar</button>
       </form>
       <br><br>
-      
-{% get_comment_list for teacher.user as comment_list  %}
-{% get_comment_count for teacher.user as comment_count %}
+{% for teach in teachers %}
 
+{% get_comment_list for teach.user as comment_list  %}
+{% get_comment_count for teach.user as comment_count %}
 
       {% if comment_count != 0 %}
       <p><span class="badge">{{ comment_count }}</span> Comentarios:</p><br>
@@ -135,15 +135,11 @@
               </div>
           </div>
 
-
-        {% endif %}
-      
+        {% endif %}     
 
       {% endfor %}
-
-      </div>
-      
-    
+{% endfor %}
+      </div> 
   
     <div class="col-sm-2 well">
       <div class="thumbnail">
