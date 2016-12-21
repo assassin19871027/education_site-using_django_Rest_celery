@@ -10,6 +10,7 @@ from django.contrib import admin
 from front.views import (
     teacherprofile,
     studentprofile,
+    recieve_comment,
     searchoffer,
     searchneed,
     home,
@@ -30,6 +31,8 @@ urlpatterns = [
     url(r"^newteacherprofile/$", newteacherprofile, name="new_teacher_profile"),      
     url(r"^account/", include("account.urls")), #pinax urls
 
+    url(r"^recieve_data/", recieve_comment, name="recieve_comment"),
+    
     url(r"^teacherprofile/(?P<teacher_id>\d+)/$", teacherprofile, name="teacherprofile"),
     url(r'^editteacherprofile/$', editteacherprofile, name="editteacherprofile"),
     url(r"^studentprofile/$", studentprofile, name="studentprofile"),

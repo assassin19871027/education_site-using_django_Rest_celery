@@ -8,7 +8,7 @@
 {% block body_class %}Profileteacher{% endblock %}
 
 {% block body_base %}
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
       <section>
         <div class="container">
@@ -94,6 +94,8 @@
         <button name="post" type="submit" class="btn btn-success">Enviar</button>
       </form>
       <br><br>
+
+<div id="comment_content">
 {% for teach in teachers %}
 
 {% get_comment_list for teach.user as comment_list  %}
@@ -139,6 +141,7 @@
 
       {% endfor %}
 {% endfor %}
+</div>
       </div> 
   
     <div class="col-sm-2 well">
@@ -159,6 +162,20 @@
   </div>
 </div>
 
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    function refresh_comment(){
+      $.post("{% url 'recieve_comment' %}", {}, function(data){
+        $("#comment_content").children().remove();
+        $("#comment_content").append(data);
+      });
+    }
+
+    setInterval(refresh_comment, 5000);
+
+  });
+</script>
 
 
 {% endblock %}

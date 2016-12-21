@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load comments %}
+
+{% for teach in teachers %}
+
+{% get_comment_list for teach.user as comment_list  %}
+{% get_comment_count for teach.user as comment_count %}
+
+      {% if comment_count != 0 %}
+      <p><span class="badge">{{ comment_count }}</span> Comentarios:</p><br>
+    {% endif %}
+
+      {% for comment in comment_list %}
+    {% if comment.level == 0 %}
+          {% language 'es' %}
+          <div class="row">
+                  <div class="col-sm-2 text-center">
+                    <img src="http://image.flaticon.com/icons/svg/53/53119.svg" class="img-circle" height="65" width="65" alt="Avatar">
+                  </div>
+                  <div class="col-sm-10">
+                    <h4>{{ comment.user.username }} <small>hace {{ comment.submit_date|timesince}}</small></h4>
+                    <p>{{ comment.comment }}{% if comment.allow_thread %}&nbsp;-&nbsp;<a href="{{ comment.get_reply_url }}">{% trans "Responder" %}</a>{% endif %}</p>
+                  </div>
+          </div>
+        {% endlanguage %}
+      {% elif comment.level == 1 %} 
+          <div class="row">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8"><p><span class="badge">1</span> Respuesta:</p><br></div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-2"></div>
+              <div class="col-xs-2 text-center">
+
+                <img src="http://image.flaticon.com/icons/svg/53/53119.svg" class="img-circle" height="65" width="65" alt="Avatar">
+              </div>
+              <div class="col-xs-8">
+                <h4>{{ comment.user.username }} <small>hace {{ comment.submit_date|timesince}}</small></h4>
+                <p>{{ comment.comment }}</p>
+                <br>
+              </div>
+          </div>
+
+        {% endif %}     
+
+      {% endfor %}
+{% endfor %}

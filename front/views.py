@@ -96,8 +96,20 @@ def teacherprofile(request, teacher_id):
         return teacher profile
     """
     teacher = get_object_or_404(Teacher, pk=teacher_id)
-    teachers = Teacher.objects.all()
+
+    teachers = Teacher.objects.all()    # this is to get information of all users for display comments.
+
     return render(request, "teacherprofile.html", locals())
+
+
+
+@csrf_exempt
+def recieve_comment(request):
+    teachers = Teacher.objects.all()
+    return render(request, "recieve_form.html", locals())
+
+
+
 
 @login_required
 def editteacherprofile(request):
